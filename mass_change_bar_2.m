@@ -1,4 +1,4 @@
-function M = mass_change_bar(t)
+function M = mass_change_bar_2(t)
 %================================
 %Choose tensegrity configuration : 1. 10-bar 30-cable Tensegrity Robot(TR-10)；2.6-bar 24-cable Tensegrity Robot(TR-6).
 TensegrityRobotType = 1;

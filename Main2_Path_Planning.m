@@ -2,7 +2,7 @@ clear;
 clc;
 close all;
 %================================
-% Need to select and modify TensegrityRobotType as needed in the simulate and mass_change_mar files
+% Need to select and modify TensegrityRobotType as needed in the simulate and mass_change_mar_2 files
 % Suggest setting a breakpoint at line 40 to check if the structure is formed.
 % The configuration exists in mirror image, when defining the roll axis,
 % TR-10 takes 2 below and 4 above the configuration; TR-6 takes 1 below and 5 above the configuration; 
@@ -80,7 +80,7 @@ scatter3(Alltarget(:,1),Alltarget(:,2),Alltarget(:,3),100,'red','filled','p');
 line(Alltarget(:,1),Alltarget(:,2),Alltarget(:,3),'LineStyle','-','Color','g','LineWidth',1.5);
 target=Alltarget(1,:);
 model = Finding_RollAxis(target,model);
-plotting_M2(model);
+plotting_M3(model);
 axis equal;
 
 Allstra=[];
@@ -148,7 +148,7 @@ while target_num<size(Alltarget,1)+1
         else
             tspan = 0:0.1:t_rank(end)+0.1+1;
         end
-        options = odeset('Mass',@mass_change_bar,'MStateDependence','none','MassSingular','no');
+        options = odeset('Mass',@mass_change_bar_2,'MStateDependence','none','MassSingular','no');
         clear t;
         clear y;
         [t,y] = ode15s(@(t,y) tensegrity_ode(t,y,tstra,model),tspan,y0,options);
@@ -242,7 +242,7 @@ IsReset = 1;                                   % Should each basic gait be reset
         else
             tspan = 0:0.1:t_rank(end)+0.1+1;
         end
-        options = odeset('Mass',@mass_change_bar,'MStateDependence','none','MassSingular','no');
+        options = odeset('Mass',@mass_change_bar_2,'MStateDependence','none','MassSingular','no');
         clear t;
         clear y;
         [t,y] = ode15s(@(t,y) tensegrity_ode(t,y,tstra,model),tspan,y0,options);
@@ -303,7 +303,7 @@ IsReset = 1;                                   % Should each basic gait be reset
         Allt=Allt+size(t,1)/10;
 
         figure(1);
-        plotting_M2(model);
+        plotting_M3(model);
         axis equal;
         hold on
     end

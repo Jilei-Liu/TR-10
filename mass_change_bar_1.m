@@ -1,4 +1,4 @@
-function M = mass_change_bar(t)
+function M = mass_change_bar_1(t)
 %Choose tensegrity configuration : 1. 10-bar 30-cable Tensegrity Robot(TR-10)；2.6-bar 24-cable Tensegrity Robot(TR-6).
 TensegrityRobotType = 1;
 % Basic gait of TR-10 : 1.ES-step; 2.SE-step; 3.SS1-step; 4.SS2-step; 5.SS3-step; 6.SS4-step;

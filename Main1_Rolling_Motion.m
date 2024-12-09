@@ -2,7 +2,7 @@ clear;
 clc;
 close all;
 %================================
-% Need to select and modify TensegrityRobotType as needed in the simulate and mass_change_mar files
+% Need to select and modify TensegrityRobotType as needed in the simulate and mass_change_mar_1 files
 % Suggest setting a breakpoint at line 65 to check if the structure is formed.
 % The configuration exists in mirror image, when defining the roll axis,
 % TR-10 takes 2 below and 4 above the configuration; TR-6 takes 1 below and 5 above the configuration; 
@@ -141,7 +141,7 @@ if isempty(t_rank)
 else
     tspan = 0:0.1:t_rank(end)+0.1+1;
 end
-options = odeset('Mass',@mass_change_bar,'MStateDependence','none','MassSingular','no');
+options = odeset('Mass',@mass_change_bar_1,'MStateDependence','none','MassSingular','no');
 clear t;
 clear y;
 [t,y] = ode15s(@(t,y) tensegrity_ode(t,y,tstra,model),tspan,y0,options);

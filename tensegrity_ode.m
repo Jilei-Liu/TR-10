@@ -12,7 +12,7 @@ c_rod = obj.c_rod;
 c_cable = obj.c_cable;
 c_string = obj.c_string;
 xxx = zeros(node_num,3);
-length_rod = [];
+length_rod = []; 
 for i = 1:node_num
     xxx(i,:) = x(3*i-2:3*i)';
 end
@@ -38,7 +38,11 @@ g = zeros(3*node_num,1);
 force_rod = zeros(3*node_num,1);
 force_cable = zeros(3*node_num,1);
 force_string = zeros(3*node_num,1);
-M = mass_change_bar(t);
+if obj.type == 1
+M = mass_change_bar_1(t);
+elseif obj.type == 2
+M = mass_change_bar_2(t);
+end
 for i = 1:node_num
 
     xx = [x(3*i-2) x(3*i-1) x(3*i)];
@@ -47,7 +51,7 @@ for i = 1:node_num
     [fcont_temp,fftemp] = fcont_calculator(xx,vv,i);
     fcont(3*i-2:3*i) = fcont_temp';
     ff(3*i-2:3*i) = fftemp';
-    g(3*i) = -9.8*M(6*i,6*i)*cosd(0); 
+    g(3*i) = -9.8*M(6*i,6*i)*cosd(0);        
 end
 for k = 1:size(rod,1)
     ix = 3*rod(k,1)-2;
@@ -63,7 +67,7 @@ for k = 1:size(cable, 1)
     ix = 3*cable(k,1)-2;
     iv = 3*cable(k,1)-2+3*node_num;
     jx = 3*cable(k,2)-2;
-    jv = 3*cable(k,2)-2+3*node_num;    
+    jv = 3*cable(k,2)-2+3*node_num;   
     delta = (norm(d(k+size(rod,1), : ))-length_cable(k)) /norm(d(k+size(rod,1), : ))* d(k+size(rod,1),:)';
     vr = dot((x(iv:iv+2) - x(jv:jv+2)),d(k+size(rod,1),:)')/norm(d(k+size(rod,1),:));
     if norm(d(k, : ))>length_cable(k)
@@ -75,7 +79,7 @@ for k = 1:size(string, 1)
     ix = 3*string(k,1)-2;
     iv = 3*string(k,1)-2+3*node_num;
     jx = 3*string(k,2)-2;
-    jv = 3*string(k,2)-2+3*node_num;  
+    jv = 3*string(k,2)-2+3*node_num;   
     delta = (norm(d(k+size(rod,1)+size(cable,1), : ))-length_string(k)) /norm(d(k+size(rod,1)+size(cable,1), : ))* d(k+size(rod,1)+size(cable,1),:)';
     vr = dot((x(iv:iv+2) - x(jv:jv+2)),d(k+size(rod,1)+size(cable,1),:)')/norm(d(k+size(rod,1)+size(cable,1),:));
     if norm(d(k, : ))>length_string(k)
